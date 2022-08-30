@@ -29,7 +29,6 @@ messageSHA = hashlib.sha3_224(message.encode('ascii')).hexdigest().encode('ascii
 keyPair = RSA.generate(2048, trng.get_random)
 pubKey = keyPair.publickey()
 window.close()
-sg.popup('Public Key: ',  title="Public Key")
 
 # encryption
 encryptor = PKCS1_OAEP.new(pubKey)
@@ -57,10 +56,9 @@ else:
 # decryption
 decipher = PKCS1_OAEP.new(keyPair)
 decrypted = decipher.decrypt(encrypted)
-receivedMessage = message
 
 layout = [[sg.Text('Your message. You can try to modify it.\nWill result in error later. ')],
-          [sg.Multiline(default_text=receivedMessage, size=(50, 20))],
+          [sg.Multiline(default_text=message, size=(50, 20))],
           [sg.Submit(), sg.Exit()]]
 
 window = sg.Window('RSA KEYGEN', layout, size=(400, 420))
